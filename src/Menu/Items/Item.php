@@ -186,18 +186,22 @@ class Item extends MenuObject
     if (!$this->hasChildren()) {
       return false;
     }
-
+    
+    $return = false;
+    
     foreach ($this->children->getChildren() as $child) {
       if ($child->isActive()) {
         return true;
       }
-
+			
+			if($return) return true;
+			
       if ($child->hasChildren()) {
-        return $child->hasActiveChild();
+        $return = $child->hasActiveChild();
       }
     }
 
-    return false;
+    return $return;
   }
 
   /**
